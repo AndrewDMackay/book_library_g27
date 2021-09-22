@@ -34,24 +34,18 @@ def select_all():
 
     for row in results:
         author = author_repository.select(row['user_id'])
-        author = Author(row['name'], user )
+        author = Author(row['name'], author)
         author.append(authors)
     return authors
 
 
-# def select(id):
-#     task = None
-#     sql = "SELECT * FROM tasks WHERE id = %s"
-#     values = [id]
-#     result = run_sql(sql, values)[0]
+def select(id):
+    author = None
+    sql = "SELECT * FROM authors WHERE id = %s"
+    values = [id]
+    result = run_sql(sql, values)[0]
 
-#     if result is not None:
-#         user = user_repository.select(result['user_id'])
-#         task = Task(result['description'], user, result['duration'], result['completed'], result['id'] )
-#     return task
+    if result is not None:
+        author = Author(result['name'], result['id'] )
+    return author
 
-
-# def update(task):
-#     sql = "UPDATE tasks SET (description, user_id, duration, completed) = (%s, %s, %s, %s) WHERE id = %s"
-#     values = [task.description, task.user.id, task.duration, task.completed, task.id]
-#     run_sql(sql, values)

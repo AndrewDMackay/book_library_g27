@@ -14,6 +14,7 @@ def save(book):
     book.id = id
     return book
 
+
 def delete_all():
     sql = "DELETE  FROM books"
     run_sql(sql)
@@ -46,10 +47,14 @@ def select(id):
 
     if result is not None:
         author = author_repository.select(result['author_id'])
-        book = Book(result['title'], result['author'] result['id'] )
+        book = Book(result['title'], author, result['id'] )
     return Book
 
 
+def update(book):
+    sql = "UPDATE books SET (title, author, author_id) = (%s, %s, %s) WHERE id = %s"
+    values = [book.title, book.author, book.author.id, book.id]
+    run_sql(sql, values)
 
 
 
@@ -61,9 +66,3 @@ def select(id):
 
 
 
-
-
-# def update(task):
-#     sql = "UPDATE tasks SET (description, user_id, duration, completed) = (%s, %s, %s, %s) WHERE id = %s"
-#     values = [task.description, task.user.id, task.duration, task.completed, task.id]
-#     run_sql(sql, values)
