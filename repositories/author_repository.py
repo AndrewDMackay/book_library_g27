@@ -1,8 +1,6 @@
 from db.run_sql import run_sql
 
-from models.book import Book
 from models.author import Author
-import repositories.book_repository as book_repository
 import repositories.author_repository as author_repository
 
 
@@ -28,13 +26,11 @@ def delete(id):
 
 def select_all():
     authors = []
-
     sql = "SELECT * FROM authors"
     results = run_sql(sql)
 
     for row in results:
-        author = author_repository.select(row['user_id'])
-        author = Author(row['name'], author)
+        author = Author(row['name'], row['id'])
         authors.append(author)
     return authors
 
@@ -48,7 +44,7 @@ def select(id):
     if result is not None:
         author = Author(result['name'], result['id'] )
     return author
-
+    
 
 def update(author):
     sql = "UPDATE authors SET (name) = (%s) WHERE id = %s"

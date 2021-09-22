@@ -5,23 +5,21 @@
 {% for book in all_books %}
   <div class="book">
     <div class="content">
-      {{book.author.name}}
+      {{ book.author.name }}
       <div class="title">
-        <a href="/books/{{ book.id }}">{{ book.description }}</a>
-        <span class="duration">{{ book.duration }} mins</span>
+        <a href="/books/{{ book.id }}">{{ book.title }}</a>
       </div>
-      <div class="buttons">
+        <div class="buttons">
           <form class="delete-form" action="/books/{{book.id}}/delete" method="POST">
-            <button class="trash-button"><i class="fa fa-trash-o fa-3x" style="color:red" aria-hidden="ture"></i></button>
+            <button class="trash-button"><i class="fa fa-trash-o fa-3x" style="color:black" aria-hidden="true"></i></button>
         </form>
-        {% if book.completed == True %}
-          <i class="fa fa-check fa-2x" style="color:green" aria-hidden="true"></i>
         {% else %}
           <i class="fa fa-times fa-2x" aria-hidden="true"></i>
         {% endif %}
-      </div>
+        </div>
     </div>
   </div>
 {% endfor %}
 
 {% endblock %}
+
