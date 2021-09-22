@@ -4,16 +4,18 @@
 
 <form action="/books" method="post">
     <div>
-        <label for="title">Title</label>
-        <input type="text" id="title" name="title" value="{{ book.title }}" required autofocus>
-        <label for="author">Author</label>
+        <label for="title"><strong>TITLE</strong></label>
+        <input type="text" id="title" name="title" placeholder="Title.." required autofocus>
+    </div>
+    <div>
+        <label for="author"><strong>AUTHOR</strong></label>
         <select id="author" name="author_id">
         {% for author in all_authors %}
         <option value="{{ author.id }}">{{ author.name }}</option>
         {% endfor %}
         </select>
     </div>
-    <button type="submit">Add Book</button>
+    <button type="submit">ADD BOOK</button>
 </form>
 
 {% endblock %}

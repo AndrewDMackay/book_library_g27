@@ -38,48 +38,48 @@ def new_books():
 def create_book():
     title = request.form['title']
     author_id = request.form['author_id']
-    author = author_repository.select[author_id]
+    author = author_repository.select(author_id)
     book = Book(title, author)
     book_repository.save(book)
     return redirect('/books')
-
+    
 
 # # SHOW
 # # GET '/books/<id>'
 
-# @books_blueprint.route("/books/<id>", strict_slashes=False, methods=['GET'])
-# def show_book(id):
-#     book = book_repository.select(id)
-#     return render_template('books/show.html', book = book)
+@books_blueprint.route("/books/<id>", strict_slashes=False, methods=['GET'])
+def show_book(id):
+    book = book_repository.select(id)
+    return render_template('books/show.html', book = book)
 
 
-# # EDIT
-# # GET '/books/<id>/edit'
+# EDIT
+# GET '/books/<id>/edit'
 
-# @books_blueprint.route("/books/<id>/edit", strict_slashes=False, methods=['GET'])
-# def edit_book(id):
-#     book = book_repository.select(id)
-#     authors = author_repository.select_all()
-#     return render_template('books/edit.html', book = book, all_authors = authors)
-
-
-# # UPDATE
-# # PUT '/books/<id>'
-
-# @books_blueprint.route("/books/<id>", strict_slashes=False, methods=['POST'])
-# def update_book(id):
-#     title = request.form['title']
-#     author_id = request.form['author_id']
-#     author = author_repository.select(author_id)
-#     book = Book(title, author, id)
-#     book_repository.update(book)
-#     return redirect('/books')
+@books_blueprint.route("/books/<id>/edit", strict_slashes=False, methods=['GET'])
+def edit_book(id):
+    book = book_repository.select(id)
+    authors = author_repository.select_all()
+    return render_template('books/edit.html', book = book, all_authors = authors)
 
 
-# # DELETE
-# # DELETE '/books/<id>'
+# UPDATE
+# PUT '/books/<id>'
 
-# @books_blueprint.route("/books/<id>/delete", strict_slashes=False, methods=['POST'])
-# def delete_book(id):
-#     book_repository.delete(id)
-#     return redirect('/books')
+@books_blueprint.route("/books/<id>", strict_slashes=False, methods=['POST'])
+def update_book(id):
+    title = request.form['title']
+    author_id = request.form['author_id']
+    author = author_repository.select(author_id)
+    book = Book(title, author, id)
+    book_repository.update(book)
+    return redirect('/books')
+
+
+# DELETE
+# DELETE '/books/<id>'
+
+@books_blueprint.route("/books/<id>/delete", strict_slashes=False, methods=['POST'])
+def delete_book(id):
+    book_repository.delete(id)
+    return redirect('/books')
