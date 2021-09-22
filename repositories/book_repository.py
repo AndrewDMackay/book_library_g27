@@ -7,8 +7,8 @@ import repositories.book_repository as book_repository
 
 
 def save(book):
-    sql = "INSERT INTO books (title, author) VALUES (%s, %s) RETURNING *"
-    values = [book.title, book.author]
+    sql = "INSERT INTO books (title, author_id) VALUES (%s, %s) RETURNING *"
+    values = [book.title, book.author.id]
     results = run_sql(sql, values)
     id = results[0]["id"]
     book.id = id
@@ -34,7 +34,7 @@ def select_all():
 
     for row in results:
         author = author_repository.select(row['author_id'])
-        book = Book(row['title'], row['author'], row['id'])
+        book = Book(row['title'], author, row['id'])
         books.append(book)
     return books
 
@@ -47,13 +47,13 @@ def select(id):
 
     if result is not None:
         author = author_repository.select(result['author_id'])
-        book = Book(result['title'], author, result['id'] )
-    return Book
+        book = Book(result['title'], author, result['id'])
+    return book
 
 
 def update(book):
     sql = "UPDATE books SET (title, author, author_id) = (%s, %s, %s) WHERE id = %s"
-    values = [book.title, book.author, book.author.id, book.id]
+    values = [book.title, book.author.id, book.id]
     run_sql(sql, values)
 
 

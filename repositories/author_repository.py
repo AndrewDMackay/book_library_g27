@@ -35,7 +35,7 @@ def select_all():
     for row in results:
         author = author_repository.select(row['user_id'])
         author = Author(row['name'], author)
-        author.append(authors)
+        authors.append(author)
     return authors
 
 
@@ -49,3 +49,8 @@ def select(id):
         author = Author(result['name'], result['id'] )
     return author
 
+
+def update(author):
+    sql = "UPDATE authors SET (name) = (%s) WHERE id = %s"
+    values = [author.name]
+    run_sql(sql, values)
