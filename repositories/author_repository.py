@@ -6,26 +6,37 @@ import repositories.book_repository as book_repository
 import repositories.author_repository as author_repository
 
 
-# def save(task):
-#     sql = "INSERT INTO tasks (description, user_id, duration, completed) VALUES (%s, %s, %s, %s) RETURNING *"
-#     values = [task.description, task.user.id, task.duration, task.completed]
-#     results = run_sql(sql, values)
-#     id = results[0]['id']
-#     task.id = id
-#     return task
+def save(author):
+    sql = "INSERT INTO authors (name) VALUES (%s) RETURNING *"
+    values = [author.name]
+    results = run_sql(sql, values)
+    id = results[0]['id']
+    author.id = id
+    return author
 
 
-# def select_all():
-#     tasks = []
+def delete_all():
+    sql = "DELETE  FROM authors"
+    run_sql(sql)
 
-#     sql = "SELECT * FROM tasks"
-#     results = run_sql(sql)
 
-#     for row in results:
-#         user = user_repository.select(row['user_id'])
-#         task = Task(row['description'], user, row['duration'], row['completed'], row['id'] )
-#         tasks.append(task)
-#     return tasks
+def delete(id):
+    sql = "DELETE  FROM authors WHERE id = %s"
+    values = [id]
+    run_sql(sql, values)
+
+
+def select_all():
+    authors = []
+
+    sql = "SELECT * FROM authors"
+    results = run_sql(sql)
+
+    for row in results:
+        author = author_repository.select(row['user_id'])
+        author = Author(row['name'], user )
+        author.append(authors)
+    return authors
 
 
 # def select(id):
@@ -38,17 +49,6 @@ import repositories.author_repository as author_repository
 #         user = user_repository.select(result['user_id'])
 #         task = Task(result['description'], user, result['duration'], result['completed'], result['id'] )
 #     return task
-
-
-# def delete_all():
-#     sql = "DELETE  FROM tasks"
-#     run_sql(sql)
-
-
-# def delete(id):
-#     sql = "DELETE  FROM tasks WHERE id = %s"
-#     values = [id]
-#     run_sql(sql, values)
 
 
 # def update(task):
