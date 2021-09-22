@@ -12,7 +12,7 @@ books_blueprint = Blueprint("books", __name__)
 
 
 # Index..
-# GET '/books/'
+# GET '/books/', finalised..
 
 @books_blueprint.route("/books", strict_slashes=False, methods=['GET'])
 def books():
@@ -22,7 +22,7 @@ def books():
 
 # NEW
 # GET '/books/new'
-# Returns an HTML form to the browser..
+# Returns an HTML form to the browser, finalised..
 
 @books_blueprint.route("/books/new", strict_slashes=False, methods=['GET'])
 def new_books():
@@ -32,7 +32,7 @@ def new_books():
 
 # CREATE
 # POST '/books/'
-# Receives the data from the form to insert into the database..
+# Receives the data from the form to insert into the database, finalised..
 
 @books_blueprint.route("/books", strict_slashes=False, methods=['POST'])
 def create_book():
@@ -42,10 +42,10 @@ def create_book():
     book = Book(title, author)
     book_repository.save(book)
     return redirect('/books')
-    
+
 
 # # SHOW
-# # GET '/books/<id>'
+# # GET '/books/<id>', finalised..
 
 @books_blueprint.route("/books/<id>", strict_slashes=False, methods=['GET'])
 def show_book(id):
@@ -77,7 +77,7 @@ def update_book(id):
 
 
 # DELETE
-# DELETE '/books/<id>'
+# DELETE '/books/<id>', finalised..
 
 @books_blueprint.route("/books/<id>/delete", strict_slashes=False, methods=['POST'])
 def delete_book(id):
